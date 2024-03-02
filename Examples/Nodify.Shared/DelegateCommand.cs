@@ -28,7 +28,7 @@ namespace Nodify
             => _action();
 
         public void RaiseCanExecuteChanged()
-            => CanExecuteChanged?.Invoke(this, new EventArgs());
+            => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public class DelegateCommand<T> : INodifyCommand

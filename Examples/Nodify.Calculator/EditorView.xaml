@@ -88,7 +88,8 @@
 
         <Style x:Key="ItemContainerStyle"
                TargetType="{x:Type nodify:ItemContainer}"
-               BasedOn="{StaticResource {x:Type nodify:ItemContainer}}">
+               BasedOn="{StaticResource {x:Type nodify:ItemContainer}}"
+               d:DataContext="{d:DesignInstance local:OperationViewModel}">
             <Setter Property="Location"
                     Value="{Binding Location}" />
             <Setter Property="IsSelected"
@@ -106,6 +107,7 @@
                              Connections="{Binding Connections}"
                              SelectedItems="{Binding SelectedOperations}"
                              DisconnectConnectorCommand="{Binding DisconnectConnectorCommand}"
+                             CreatingKnotNodeCommand="{Binding Command}"
                              PendingConnection="{Binding PendingConnection}"
                              PendingConnectionTemplate="{StaticResource PendingConnectionTemplate}"
                              ConnectionTemplate="{StaticResource ConnectionTemplate}"
@@ -117,7 +119,8 @@
                              x:Name="Editor">
             <nodify:NodifyEditor.Resources>
                 <Style TargetType="{x:Type nodify:NodeInput}"
-                       BasedOn="{StaticResource {x:Type nodify:NodeInput}}">
+                       BasedOn="{StaticResource {x:Type nodify:NodeInput}}"
+                       d:DataContext="{d:DesignInstance local:ConnectorViewModel}">
                     <Setter Property="Header"
                             Value="{Binding}" />
                     <Setter Property="IsConnected"
@@ -141,7 +144,8 @@
                 </Style>
 
                 <Style TargetType="{x:Type nodify:NodeOutput}"
-                       BasedOn="{StaticResource {x:Type nodify:NodeOutput}}">
+                       BasedOn="{StaticResource {x:Type nodify:NodeOutput}}"
+                       d:DataContext="{d:DesignInstance local:ConnectorViewModel}">
                     <Setter Property="Header"
                             Value="{Binding}" />
                     <Setter Property="IsConnected"
@@ -214,7 +218,8 @@
                 <DataTemplate DataType="{x:Type local:CalculatorInputOperationViewModel}">
                     <DataTemplate.Resources>
                         <Style TargetType="{x:Type nodify:NodeOutput}"
-                               BasedOn="{StaticResource {x:Type nodify:NodeOutput}}">
+                               BasedOn="{StaticResource {x:Type nodify:NodeOutput}}"
+                               d:DataContext="{d:DesignInstance local:ConnectorViewModel}">
                             <Setter Property="Header"
                                     Value="{Binding}" />
                             <Setter Property="IsConnected"

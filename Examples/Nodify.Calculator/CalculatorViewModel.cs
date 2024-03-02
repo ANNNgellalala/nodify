@@ -1,10 +1,24 @@
 ﻿using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Nodify.Calculator
 {
     public class CalculatorViewModel : ObservableObject
     {
+        public ICommand Command { get; set; } = new DelegateCommand<MouseEventArgs>(OnNodeCreate, args => true);
+
+        private static void OnNodeCreate(
+            MouseEventArgs e)
+        {
+            var sender = e.Source as NodifyEditor;
+            OperationViewModel op = OperationFactory.GetOperation(OperationFactory.GetOperationsInfo(typeof(OperationsContainer))[^1]);
+            op.Location = Mouse.GetPosition(sender);
+            op.IsSelected = true;
+            var list = sender!.ItemsSource as NodifyObservableCollection<OperationViewModel>;
+            list.Add(op);
+        }
+        
         public CalculatorViewModel()
         {
             CreateConnectionCommand = new DelegateCommand<ConnectorViewModel>(
@@ -14,7 +28,7 @@ namespace Nodify.Calculator
             DisconnectConnectorCommand = new DelegateCommand<ConnectorViewModel>(DisconnectConnector);
             DeleteSelectionCommand = new DelegateCommand(DeleteSelection);
             GroupSelectionCommand = new DelegateCommand(GroupSelectedOperations, () => SelectedOperations.Count > 0);
-
+            
             Connections.WhenAdded(c =>
             {
                 c.Input.IsConnected = true;
@@ -96,6 +110,8 @@ namespace Nodify.Calculator
         public INodifyCommand DisconnectConnectorCommand { get; }
         public INodifyCommand DeleteSelectionCommand { get; }
         public INodifyCommand GroupSelectionCommand { get; }
+        
+        public INodifyCommand CreateKnotNodeCommand { get; }
 
         private void DisconnectConnector(ConnectorViewModel connector)
         {

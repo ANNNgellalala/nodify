@@ -14,7 +14,7 @@ namespace Nodify
         public static readonly DependencyProperty ActualSizeProperty = ItemContainer.ActualSizeProperty.AddOwner(typeof(DecoratorContainer));
 
         /// <summary>
-        /// Gets or sets the location of this <see cref="DecoratorContainer"/> inside the <see cref="NodifyEditor.DecoratorsHost"/>.
+        /// Gets or sets the location of this <see cref="DecoratorContainer"/> inside the <see cref="NodifyEditor.Decorators"/>.
         /// </summary>
         public Point Location
         {

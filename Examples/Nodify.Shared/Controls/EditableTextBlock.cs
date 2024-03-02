@@ -105,7 +105,7 @@ namespace Nodify
             {
                 TextBox.LostFocus += OnLostFocus;
                 TextBox.LostKeyboardFocus += OnLostFocus;
-                TextBox.IsVisibleChanged += OnTextBoxVisiblityChanged;
+                TextBox.IsVisibleChanged += OnTextBoxVisibilityChanged;
 
                 if (IsEditing)
                 {
@@ -115,7 +115,7 @@ namespace Nodify
             }
         }
 
-        private void OnTextBoxVisiblityChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void OnTextBoxVisibilityChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (IsEditing && TextBox != null)
             {

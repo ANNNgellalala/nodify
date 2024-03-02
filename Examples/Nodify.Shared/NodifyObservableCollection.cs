@@ -29,7 +29,7 @@ namespace Nodify
         /// </summary>
         /// <param name="added">The callback to execute when the collection is cleared</param>
         /// <returns>Returns self</returns>
-        INodifyObservableCollection<T> WhenCleared(Action<IList<T>> cleared);
+        INodifyObservableCollection<T> WhenCleared(Action<IList<T>>? cleared);
     }
 
     public class NodifyObservableCollection<T> : Collection<T>, INodifyObservableCollection<T>, INotifyPropertyChanged, INotifyCollectionChanged
@@ -38,9 +38,9 @@ namespace Nodify
         protected static readonly PropertyChangedEventArgs CountPropertyChanged = new PropertyChangedEventArgs("Count");
         protected static readonly NotifyCollectionChangedEventArgs ResetCollectionChanged = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
 
-        private readonly List<Action<T>> _added = new List<Action<T>>();
-        private readonly List<Action<T>> _removed = new List<Action<T>>();
-        private readonly List<Action<IList<T>>> _cleared = new List<Action<IList<T>>>();
+        private readonly List<Action<T>>         _added   = new List<Action<T>>();
+        private readonly List<Action<T>>         _removed = new List<Action<T>>();
+        private readonly List<Action<IList<T>>?> _cleared = new List<Action<IList<T>>?>();
 
         public event NotifyCollectionChangedEventHandler? CollectionChanged;
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -56,55 +56,46 @@ namespace Nodify
 
         #region Collection Events
 
-        public INodifyObservableCollection<T> WhenAdded(Action<T> added)
+        public INodifyObservableCollection<T> WhenAdded(Action<T>? added)
         {
             if (added != null)
-            {
                 _added.Add(added);
-            }
+
             return this;
         }
 
-        public INodifyObservableCollection<T> WhenRemoved(Action<T> removed)
+        public INodifyObservableCollection<T> WhenRemoved(Action<T>? removed)
         {
             if (removed != null)
-            {
                 _removed.Add(removed);
-            }
+
             return this;
         }
 
-        public INodifyObservableCollection<T> WhenCleared(Action<IList<T>> cleared)
+        public INodifyObservableCollection<T> WhenCleared(Action<IList<T>>? cleared)
         {
             if (cleared != null)
-            {
                 _cleared.Add(cleared);
-            }
+
             return this;
         }
 
         protected virtual void NotifyOnItemAdded(T item)
         {
-            for (int i = 0; i < _added.Count; i++)
-            {
-                _added[i](item);
-            }
+            foreach (var action in _added)
+                action(item);
         }
 
         protected virtual void NotifyOnItemRemoved(T item)
         {
-            for (int i = 0; i < _removed.Count; i++)
-            {
-                _removed[i](item);
-            }
+            foreach (var action in _removed)
+                action(item);
         }
 
         protected virtual void NotifyOnItemsCleared(IList<T> items)
         {
-            for (int i = 0; i < _cleared.Count; i++)
-            {
-                _cleared[i](items);
-            }
+            foreach (var action in _cleared)
+                action?.Invoke(items);
         }
 
         #endregion

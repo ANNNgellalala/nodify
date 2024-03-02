@@ -23,7 +23,7 @@ namespace Nodify
     [StyleTypedProperty(Property = nameof(SelectionRectangleStyle), StyleTargetType = typeof(Rectangle))]
     [ContentProperty(nameof(Decorators))]
     [DefaultProperty(nameof(Decorators))]
-    public class NodifyEditor : MultiSelector
+    public partial class NodifyEditor : MultiSelector
     {
         protected const string ElementItemsHost = "PART_ItemsHost";
 
@@ -717,6 +717,7 @@ namespace Nodify
             AddHandler(ItemContainer.DragCompletedEvent, new DragCompletedEventHandler(OnItemsDragCompleted));
             AddHandler(ItemContainer.DragDeltaEvent, new DragDeltaEventHandler(OnItemsDragDelta));
 
+            AddHandler(MouseDownEvent, new MouseButtonEventHandler(OnCreatingKnotNode));
             var transform = new TransformGroup();
             transform.Children.Add(ScaleTransform);
             transform.Children.Add(TranslateTransform);

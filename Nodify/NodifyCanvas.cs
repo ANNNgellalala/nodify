@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Nodify
@@ -68,7 +69,7 @@ namespace Nodify
                 }
             }
 
-            Extent = minX == double.MaxValue
+            Extent = Math.Abs(minX - double.MaxValue) < 1e-6
                 ? new Rect(0, 0, 0, 0)
                 : new Rect(minX, minY, maxX - minX, maxY - minY);
 
@@ -81,10 +82,8 @@ namespace Nodify
             var availableSize = new Size(double.PositiveInfinity, double.PositiveInfinity);
             UIElementCollection children = InternalChildren;
 
-            for (int i = 0; i < children.Count; i++)
-            {
+            for (var i = 0; i < children.Count; i++)
                 children[i].Measure(availableSize);
-            }
 
             return default;
         }

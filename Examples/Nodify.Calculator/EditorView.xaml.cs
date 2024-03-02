@@ -37,8 +37,8 @@ namespace Nodify.Calculator
 
         private void OnDropNode(object sender, DragEventArgs e)
         {
-            if(e.Source is NodifyEditor editor && editor.DataContext is CalculatorViewModel calculator
-                && e.Data.GetData(typeof(OperationInfoViewModel)) is OperationInfoViewModel operation)
+            if(e.Source is NodifyEditor { DataContext: CalculatorViewModel calculator } editor
+            && e.Data.GetData(typeof(OperationInfoViewModel)) is OperationInfoViewModel operation)
             {
                 OperationViewModel op = OperationFactory.GetOperation(operation);
                 op.Location = editor.GetLocationInsideEditor(e);

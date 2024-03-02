@@ -32,6 +32,8 @@ namespace Nodify
             public static InputGesture Cancel { get; set; } = new KeyGesture(Key.Escape);
         }
 
+        public static InputGesture CreateConnection { get; set; } = new MouseGesture(MouseAction.LeftClick, ModifierKeys.Control);
+        
         /// <summary>Gesture used to start selecting using a <see cref="Selection"/> strategy.</summary>
         public static InputGesture Select { get; } = new MultiGesture(MultiGesture.Match.Any, Selection.Replace, Selection.Remove, Selection.Append, Selection.Invert);
 

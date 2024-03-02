@@ -33,17 +33,13 @@ namespace Nodify
         {
             if (collection is IList<T> list)
             {
-                for (int i = 0; i < list.Count; i++)
-                {
-                    action(list[i]);
-                }
+                foreach (T item in list)
+                    action(item);
             }
             else
             {
-                foreach (var item in collection)
-                {
+                foreach (T item in collection)
                     action(item);
-                }
             }
 
             return collection;

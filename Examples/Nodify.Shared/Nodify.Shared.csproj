@@ -1,10 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <UseWPF>true</UseWPF>
-    <TargetFrameworks>net8-windows;net6-windows;net5-windows;netcoreapp3.1;net48;net472</TargetFrameworks>
-    <UseWPF>true</UseWPF>
     <Nullable>enable</Nullable>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RootNamespace>Nodify</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='net472' OR '$(TargetFramework)'=='net48'">
     <LangVersion>8.0</LangVersion>
